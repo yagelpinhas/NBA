@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My NBA Roster</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel:900|Graduate" rel="stylesheet">
+    <link rel="stylesheet" href="/client/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.4/handlebars.js"></script>
+</head>
+
+<body>
+    <div id="search-container">
+        <input class="input" id="teamNameInput" type="text" placeholder="Team Name">
+        <input class="input" id="yearInput" type="text" placeholder="Year">
+        <button class="generatePlayers" onclick=fetch()>Get Team</button>
+    </div>
+
+    <div id="roster"></div>
+
+    <script id="roster-template" type="text/x-handlebars-template">
+        {{#each roster}}
+        <div class="player">
+            <p class="name">{{firstName}} {{lastName}}</p>
+            <p class="number">{{jersey}}</p>
+            <div class="player-image">
+                <img
+                    src="{{img}}"
+                >
+            </div>
+            <p class="pos">{{pos}}</p>
+        </div>
+        {{/each}}
+    </script>
+
+
+    <script src="/client/main.js"></script>
+</body>
+
+</html>

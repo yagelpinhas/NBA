@@ -1,0 +1,51 @@
+#search-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+*{
+    font-family: Verdana, Arial, sans-serif;
+    font-size: 1.1em;
+}
+
+body{
+    background-color: #bdc2c7;
+}
+
+.input{
+    padding: 1vw;
+    display: inline;
+}
+.generatePlayers{
+    display: inline
+}
+#roster{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1vw;
+}
+p{
+    margin: 0;
+    padding: 0;
+}
+.player{
+    /* display: grid; */
+    background-color: orange;
+    text-align: center;
+    align-content: center;
+    font-family: 'Courier New', Courier, monospace;
+    padding-left: 1vw;
+    padding-right: 1vw;
+}
+
+.player-image{
+    background-color: #bdc3c7;
+    box-shadow: 1px 1px 3px black;
+    box-sizing: border-box;
+}
+
+img {
+    width: 350px;
+    height: 300px;
+}
