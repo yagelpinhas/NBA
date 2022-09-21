@@ -36,12 +36,14 @@ async def query_params(teamName,year):
                 jersey_number = player["jersey"]
                 position = player["pos"]
                 img = f"https:nba-players.herokuapp.com/players/{last_name}/{first_name}"
+                isActive = player["isActive"]
                 relevant_players.append({
                     "firstName" : first_name,"lastName"  : last_name,
                     "jersey" : jersey_number,
+                    "isActive": isActive,
                     "pos": position,
                     "img": img})
     return relevant_players
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8040)
+    uvicorn.run(app, host="0.0.0.0", port=8030)

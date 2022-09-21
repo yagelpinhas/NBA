@@ -30,9 +30,7 @@ $("body").on("click", ".addDream", function() {
   });
 
   $("body").on("click", ".retrieve", function() {
-    renderer.render(module.getDreamTeam)
-    $(".addDream").html("-")
-    $(".addDream").toggleClass('removeDream');
+    renderer.renderDreamTeam(module.getDreamTeam)
     a=5
   });
 
@@ -42,7 +40,12 @@ $("body").on("click", ".removeDream", function() {
   let firstName = name.split(" ")[0]
   let lastName = name.split(" ")[1]
   module.removeFromDreamTeam(firstName,lastName)
-  renderer.render(module.getDreamTeam)
+  renderer.renderDreamTeam(module.getDreamTeam)
+});
+
+$("body").on("click", ".filterActive", function() {
+  module.filterActive()
+  renderer.render(module.getPlayers)
 });
 
 

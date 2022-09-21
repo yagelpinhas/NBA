@@ -53,3 +53,7 @@ img {
 .retrieve{
     background-color: pink;
 }
+
+.filterActive{
+    background-color: lightseagreen;
+}

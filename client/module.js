@@ -23,11 +23,16 @@ const DataManager = function () {
     const getDreamTeam = function(){
         return dreamTeam
     }
+
+    const filterActive = function(){
+        roster=roster.filter(player => player["isActive"]==false)
+    }
     return {
         getPlayers: getPlayers,
         setPlayers: setPlayers,
         addToDreamTeam: addToDreamTeam,
         getDreamTeam: getDreamTeam,
-        removeFromDreamTeam: removeFromDreamTeam
+        removeFromDreamTeam: removeFromDreamTeam,
+        filterActive: filterActive
     }
 }
