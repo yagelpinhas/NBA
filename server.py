@@ -20,7 +20,7 @@ def root():
     return FileResponse('./client/index.html')
 
 def queryPlayerTeam(player,team,teamName,year):
-    return team["teamId"] == teamToIDs[teamName] and year>=int(team["seasonStart"]) and year<=int(team["seasonEnd"]) and player["isActive"]==True
+    return team["teamId"] == teamToIDs[teamName] and year>=int(team["seasonStart"]) and year<=int(team["seasonEnd"]) 
 
 @app.get("/playersByYear/")
 async def query_params(teamName,year):
@@ -44,4 +44,4 @@ async def query_params(teamName,year):
     return relevant_players
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8040)

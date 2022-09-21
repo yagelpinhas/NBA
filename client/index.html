@@ -19,7 +19,7 @@
         <input class="input" id="yearInput" type="text" placeholder="Year">
         <button class="generatePlayers" onclick=fetch()>Get Team</button>
     </div>
-
+    <button class="retrieve">retrieve</button>
     <div id="roster"></div>
 
     <script id="roster-template" type="text/x-handlebars-template">
@@ -28,16 +28,18 @@
             <p class="name">{{firstName}} {{lastName}}</p>
             <p class="number">{{jersey}}</p>
             <div class="player-image">
-                <img
+                <img class="playerimg"
                     src="{{img}}"
                 >
             </div>
             <p class="pos">{{pos}}</p>
+            <button class="addDream">+</button>
         </div>
         {{/each}}
     </script>
 
-
+    <script src="/client/module.js"></script>
+    <script src="/client/renderer.js"></script>
     <script src="/client/main.js"></script>
 </body>
 
