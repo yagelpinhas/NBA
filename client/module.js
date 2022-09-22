@@ -1,31 +1,28 @@
 
 const DataManager = function () {
-    roster=[]
-    dreamTeam=[]
-    const addToDreamTeam = function (player){
-        dreamTeam.push(player)
+    let roster=[]
+    let dreamTeam=[]
+    const addToDreamTeam = async function (player){
+        await $.post("/addToDreamTeam/",JSON.stringify(player));
     }
-    const removeFromDreamTeam = function(firstName,lastName){
-        index_to_be_removed=-1
-        for(let i=0; i <dreamTeam.length;i++){
-            if (dreamTeam[i]["firstName"]==firstName && dreamTeam[i]["lastName"]==lastName){
-                index_to_be_removed=i
-            }
-        }
-        dreamTeam.splice(index_to_be_removed,1)
-    }
-    const setPlayers = function(arr){
-        roster=arr
+    const removeFromDreamTeam = async function(firstName,lastName){
+        await $.delete(`/removeFromDreamTeam?firstName=${firstName}&lastName=${lastName}`)
     }
     const getPlayers = function(){
         return roster
     }
     const getDreamTeam = function(){
-        return dreamTeam
+        return $.get(`/getDreamTeam`)
     }
 
     const filterActive = function(){
-        roster=roster.filter(player => player["isActive"]==false)
+        roster=roster.filter(player => player["isActive"]==true)
+    }
+
+    const setPlayers = async function(teamName,year){
+        await $.get(`/playersByYear?teamName=${teamName}&year=${year}`, function (response) {
+           roster=response
+        })
     }
     return {
         getPlayers: getPlayers,

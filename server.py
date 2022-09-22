@@ -15,6 +15,8 @@ teamToIDs = {
     "suns": "1610612756"
 }
 
+dreamTeam =[]
+
 @app.get('/')
 def root():
     return FileResponse('./client/index.html')
@@ -45,5 +47,27 @@ async def query_params(teamName,year):
                     "img": img})
     return relevant_players
 
+
+
+@app.post("/addToDreamTeam/")
+async def addToDreamTeam(request: Request):
+    res = await request.json()
+    dreamTeam.append(res)
+    print(dreamTeam)
+    a=5
+
+
+@app.delete("/removeFromDreamTeam/")
+async def removeFromDreamTeam(firstName,lastName):
+    index_to_be_removed=-1
+    for i in range(0,len(dreamTeam)):
+        if dreamTeam[i]["firstName"]==firstName and dreamTeam[i]["lastName"]==lastName:
+            index_to_be_removed=i
+    dreamTeam.pop(index_to_be_removed)
+
+@app.get("/getDreamTeam/")
+async def getDreamTeam():
+    return dreamTeam
+
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8030)
+    uvicorn.run("server:app", host="0.0.0.0", port=8080,reload=True)
