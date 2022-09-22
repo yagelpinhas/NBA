@@ -6,7 +6,22 @@ const DataManager = function () {
         await $.post("/addToDreamTeam/",JSON.stringify(player));
     }
     const removeFromDreamTeam = async function(firstName,lastName){
-        await $.delete(`/removeFromDreamTeam?firstName=${firstName}&lastName=${lastName}`)
+        $.ajax({
+            url: `/removeFromDreamTeam?firstName=${firstName}&lastName=${lastName}`,
+            type: 'DELETE',
+            dataType: 'json',
+            data: {
+                "firstName": firstName,
+                "lastName": lastName
+            },
+            success: function(res) {
+                console.log(res);
+            },
+            error: function(response) {
+                console.log(response);
+            }
+        });
+
     }
     const getPlayers = function(){
         return roster
@@ -15,8 +30,12 @@ const DataManager = function () {
         return $.get(`/getDreamTeam`)
     }
 
-    const filterActive = function(){
-        roster=roster.filter(player => player["isActive"]==true)
+    const filterActive = async function(){
+        
+        await $.get(`/filterActive`, function (response) {
+            roster=response
+            a=5
+         })
     }
 
     const setPlayers = async function(teamName,year){

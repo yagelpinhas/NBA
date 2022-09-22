@@ -1,4 +1,4 @@
-// 17: 59
+//19:15
 const renderer = Renderer()
 const module = DataManager()
 
@@ -38,9 +38,9 @@ $("body").on("click", ".removeDream", async function() {
   renderer.renderDreamTeam(dreamTeam)
 });
 
-$("body").on("click", ".filterActive", function() {
-  module.filterActive()
-  renderer.render(module.getPlayers)
+$("body").on("click", ".filterActive", async function() {
+  await module.filterActive()
+  renderer.render(module.getPlayers())
 });
 
 

@@ -1,3 +1,4 @@
+from tkinter.tix import Tree
 from fastapi import FastAPI , status ,  HTTPException , Request
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -16,20 +17,25 @@ teamToIDs = {
 }
 
 dreamTeam =[]
+relevant_players=[]
 
 @app.get('/')
 def root():
     return FileResponse('./client/index.html')
+
+def isActive(player):
+    return player["isActive"]==False
 
 def queryPlayerTeam(player,team,teamName,year):
     return team["teamId"] == teamToIDs[teamName] and year>=int(team["seasonStart"]) and year<=int(team["seasonEnd"]) 
 
 @app.get("/playersByYear/")
 async def query_params(teamName,year):
+    global relevant_players
+    relevant_players=[]
     year=int(year)
     res = requests.get('http://data.nba.net/10s/prod/v1/2018/players.json')
     allplayers = res.json()['league']['standard']
-    relevant_players=[]
     for player in allplayers:
         for team in player["teams"]:
             if queryPlayerTeam(player,team,teamName,year)==True:
@@ -69,5 +75,12 @@ async def removeFromDreamTeam(firstName,lastName):
 async def getDreamTeam():
     return dreamTeam
 
+@app.get("/filterActive")
+async def filterActive():
+    global relevant_players
+    print(relevant_players)
+    relevant_players = list(filter(lambda player: (isActive(player)), relevant_players)) 
+    return relevant_players
+
 if __name__ == "__main__":
-    uvicorn.run("server:app", host="0.0.0.0", port=8080,reload=True)
+    uvicorn.run("server:app", host="0.0.0.0", port=8070,reload=True)
