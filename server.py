@@ -82,5 +82,10 @@ async def filterActive():
     relevant_players = list(filter(lambda player: (isActive(player)), relevant_players)) 
     return relevant_players
 
+@app.get("/getPlayerStats/")
+def getPlayerStats(firstName,lastName):
+    res = requests.get('https://nba-players.herokuapp.com/players-stats/{lastName}/{firstName}')
+    return res.json()
+
 if __name__ == "__main__":
     uvicorn.run("server:app", host="0.0.0.0", port=8070,reload=True)
