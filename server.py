@@ -64,7 +64,6 @@ async def query_params(teamName,year):
 async def addToDreamTeam(request: Request):
     res = await request.json()
     dreamTeam.append(res)
-    print(dreamTeam)
     a=5
 
 
@@ -100,4 +99,4 @@ def getPlayerStats(firstName,lastName):
     return res.json()
 
 if __name__ == "__main__":
-    uvicorn.run("server:app", host="0.0.0.0", port=8048,reload=True)
+    uvicorn.run("server:app", host="0.0.0.0", port=8041,reload=True)
