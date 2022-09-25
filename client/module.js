@@ -1,7 +1,10 @@
 
 const DataManager = function () {
     let roster=[]
-    let dreamTeam=[]
+    const getPlayerStats = async function(firstName,lastName){
+        return $.get(`/getPlayerStats?firstName=${firstName}&lastName=${lastName}`)
+    }
+
     const addToDreamTeam = async function (player){
         await $.post("/addToDreamTeam/",JSON.stringify(player));
     }
@@ -49,6 +52,7 @@ const DataManager = function () {
         addToDreamTeam: addToDreamTeam,
         getDreamTeam: getDreamTeam,
         removeFromDreamTeam: removeFromDreamTeam,
-        filterActive: filterActive
+        filterActive: filterActive,
+        getPlayerStats: getPlayerStats
     }
 }

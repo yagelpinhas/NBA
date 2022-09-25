@@ -35,6 +35,11 @@
             </div>
             <p class="pos">{{pos}}</p>
             <button class="addDream">+</button>
+            <button class="stats">stats</button>
+            <div class="dropup">
+                <div class="dropup-content">
+             </div>
+            </div>
         </div>
         {{/each}}
     </script>
@@ -51,9 +56,22 @@
             </div>
             <p class="pos">{{pos}}</p>
             <button class="removeDream">-</button>
+            <button class="stats">stats</button>
+            <div class="dropup">
+                <div class="dropup-content">
+                </div>
+            </div>
         </div>
         {{/each}}
     </script>
+    <script class="stats-template" type="text/x-handlebars-template">
+        <p class="stat">Games Played: {{games_played}}</p>
+        <p class="stat">Minutes Per Game: {{minutes_per_game}}</p>
+        <p class="stat">Steals Per Game: {{steals_per_game}}</p>
+        <p class="stat">Blocks Per Game: {{blocks_per_game}}</p>
+        <p class="stat">Player efficiency: {{player_efficiency_rating}}</p>
+    </script>
+    
 
     <script src="/client/module.js"></script>
     <script src="/client/renderer.js"></script>

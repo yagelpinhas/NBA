@@ -18,33 +18,38 @@ teamToIDs = {
 
 dreamTeam =[]
 relevant_players=[]
+dreamTeamMode = False
 
 @app.get('/')
 def root():
     return FileResponse('./client/index.html')
 
 def isActive(player):
-    return player["isActive"]==False
+    return len(player["isActive"])>0
 
-def queryPlayerTeam(player,team,teamName,year):
-    return team["teamId"] == teamToIDs[teamName] and year>=int(team["seasonStart"]) and year<=int(team["seasonEnd"]) 
+def queryPlayerTeam(team,teamName):
+    return team== teamToIDs[teamName] 
 
 @app.get("/playersByYear/")
 async def query_params(teamName,year):
+    global dreamTeamMode
+    dreamTeamMode = False
     global relevant_players
     relevant_players=[]
+    
+    res = requests.get(f"http://data.nba.net/10s/prod/v1/{year}/players.json")
     year=int(year)
-    res = requests.get('http://data.nba.net/10s/prod/v1/2018/players.json')
     allplayers = res.json()['league']['standard']
     for player in allplayers:
-        for team in player["teams"]:
-            if queryPlayerTeam(player,team,teamName,year)==True:
+        for team in player["teamId"].split(" "):
+            if queryPlayerTeam(team,teamName)==True:
                 first_name = player["firstName"]
                 last_name = player["lastName"]
                 jersey_number = player["jersey"]
                 position = player["pos"]
                 img = f"https:nba-players.herokuapp.com/players/{last_name}/{first_name}"
-                isActive = player["isActive"]
+                isActive = player["dateOfBirthUTC"]
+                
                 relevant_players.append({
                     "firstName" : first_name,"lastName"  : last_name,
                     "jersey" : jersey_number,
@@ -73,19 +78,26 @@ async def removeFromDreamTeam(firstName,lastName):
 
 @app.get("/getDreamTeam/")
 async def getDreamTeam():
+    global dreamTeamMode
+    dreamTeamMode = True
     return dreamTeam
 
 @app.get("/filterActive")
 async def filterActive():
     global relevant_players
-    print(relevant_players)
-    relevant_players = list(filter(lambda player: (isActive(player)), relevant_players)) 
-    return relevant_players
+    global dreamTeam
+    global dreamTeamMode
+    if (dreamTeamMode == False):
+        relevant_players = list(filter(lambda player: (isActive(player)), relevant_players)) 
+        return relevant_players
+    else:
+        dreamTeam = list(filter(lambda player: (isActive(player)), dreamTeam))
+        return dreamTeam 
 
 @app.get("/getPlayerStats/")
 def getPlayerStats(firstName,lastName):
-    res = requests.get('https://nba-players.herokuapp.com/players-stats/{lastName}/{firstName}')
+    res = requests.get(f'https://nba-players.herokuapp.com/players-stats/{lastName}/{firstName}')
     return res.json()
 
 if __name__ == "__main__":
-    uvicorn.run("server:app", host="0.0.0.0", port=8070,reload=True)
+    uvicorn.run("server:app", host="0.0.0.0", port=8048,reload=True)
