@@ -19,7 +19,7 @@ body{
 .generatePlayers{
     display: inline
 }
-#roster{
+#playersBoard{
     display: grid;
     grid-gap: 10px;
     grid-template-columns: repeat(3, 1fr);
@@ -30,8 +30,7 @@ p{
     padding: 0;
 }
 .player{
-    /* display: grid; */
-    background-color: orange;
+    background-color: #FF6700;
     text-align: center;
     align-content: center;
     font-family: 'Courier New', Courier, monospace;

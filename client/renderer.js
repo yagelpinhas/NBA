@@ -9,15 +9,15 @@ const Renderer = function() {
     const getDreamMode = function(){
         return dreamMode
     }
-    const render=function(roster){
+    const render=function(players){
         dreamMode = false
-        const newHTML = template({ roster })
-        $(`#roster`).empty().append(newHTML)
+        const newHTML = template({ players })
+        $(`#playersBoard`).empty().append(newHTML)
     }
 
-    const renderDreamTeam = function(roster){
-        const newHTMLDREAM = templateDream({roster})
-        $(`#roster`).empty().append(newHTMLDREAM)
+    const renderDreamTeam = function(dreamPlayers){
+        const newHTMLDREAM = templateDream({dreamPlayers})
+        $(`#playersBoard`).empty().append(newHTMLDREAM)
         dreamMode = true
     }
 

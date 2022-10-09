@@ -1,4 +1,4 @@
-//15:33 pm 
+//13:41 pm 
 const renderer = Renderer()
 const module = DataManager()
 
@@ -9,12 +9,10 @@ const fetch = async function () {
     renderer.render(module.getPlayers())
 }
 
-
 $("body").on("click", ".addDream", async function() {
     let name =  $(this).closest(".player").find(".name").html()
     let firstName = name.split(" ")[0]
-    let lastName = name.split(" ")[1]
-    
+    let lastName = name.split(" ")[1] 
     let jersey=  $(this).closest(".player").find(".number").html()
     let pos =  $(this).closest(".player").find(".pos").html()
     let img = $(this).closest(".player").find('.playerimg').attr('src');
@@ -25,7 +23,6 @@ $("body").on("click", ".addDream", async function() {
   $("body").on("click", ".retrieve", async function() {
     dreamTeam = await module.getDreamTeam()
     renderer.renderDreamTeam(dreamTeam)
-    a=5
   });
 
   

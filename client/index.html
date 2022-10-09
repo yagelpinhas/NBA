@@ -4,7 +4,6 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>My NBA Roster</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://fonts.googleapis.com/css?family=Cinzel:900|Graduate" rel="stylesheet">
     <link rel="stylesheet" href="/client/style.css">
@@ -21,10 +20,10 @@
     </div>
     <button class="retrieve">retrieve</button>
     <button class="filterActive">Filter Active</button>
-    <div id="roster"></div>
+    <div id="playersBoard"></div>
 
     <script id="roster-template" type="text/x-handlebars-template">
-        {{#each roster}}
+        {{#each players}}
         <div class="player">
             <p class="name">{{firstName}} {{lastName}}</p>
             <p class="number">{{jersey}}</p>
@@ -45,7 +44,7 @@
     </script>
 
     <script id="rosterdream-template" type="text/x-handlebars-template">
-        {{#each roster}}
+        {{#each dreamPlayers}}
         <div class="player">
             <p class="name">{{firstName}} {{lastName}}</p>
             <p class="number">{{jersey}}</p>

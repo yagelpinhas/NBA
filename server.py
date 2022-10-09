@@ -27,8 +27,8 @@ def root():
 def isActive(player):
     return len(player["isActive"])>0
 
-def queryPlayerTeam(team,teamName):
-    return team== teamToIDs[teamName] 
+def filterRelevantTeam(teamID,teamName):
+    return teamID== teamToIDs[teamName] 
 
 @app.get("/playersByYear/")
 async def query_params(teamName,year):
@@ -38,11 +38,10 @@ async def query_params(teamName,year):
     relevant_players=[]
     
     res = requests.get(f"http://data.nba.net/10s/prod/v1/{year}/players.json")
-    year=int(year)
     allplayers = res.json()['league']['standard']
     for player in allplayers:
         for team in player["teamId"].split(" "):
-            if queryPlayerTeam(team,teamName)==True:
+            if filterRelevantTeam(team,teamName)==True:
                 first_name = player["firstName"]
                 last_name = player["lastName"]
                 jersey_number = player["jersey"]
@@ -64,8 +63,6 @@ async def query_params(teamName,year):
 async def addToDreamTeam(request: Request):
     res = await request.json()
     dreamTeam.append(res)
-    a=5
-
 
 @app.delete("/removeFromDreamTeam/")
 async def removeFromDreamTeam(firstName,lastName):
@@ -99,4 +96,4 @@ def getPlayerStats(firstName,lastName):
     return res.json()
 
 if __name__ == "__main__":
-    uvicorn.run("server:app", host="0.0.0.0", port=8041,reload=True)
+    uvicorn.run("server:app", host="0.0.0.0", port=8043,reload=True)

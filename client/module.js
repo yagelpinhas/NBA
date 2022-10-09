@@ -1,6 +1,6 @@
 
 const DataManager = function () {
-    let roster=[]
+    let players=[]
     const getPlayerStats = async function(firstName,lastName){
         return $.get(`/getPlayerStats?firstName=${firstName}&lastName=${lastName}`)
     }
@@ -27,7 +27,7 @@ const DataManager = function () {
 
     }
     const getPlayers = function(){
-        return roster
+        return players
     }
     const getDreamTeam = function(){
         return $.get(`/getDreamTeam`)
@@ -36,14 +36,13 @@ const DataManager = function () {
     const filterActive = async function(){
         
         await $.get(`/filterActive`, function (response) {
-            roster=response
-            a=5
+            players=response
          })
     }
 
     const setPlayers = async function(teamName,year){
         await $.get(`/playersByYear?teamName=${teamName}&year=${year}`, function (response) {
-           roster=response
+           players=response
         })
     }
     return {
