@@ -17,7 +17,6 @@ $("body").on("click", ".addDream", async function() {
     let pos =  $(this).closest(".player").find(".pos").html()
     let img = $(this).closest(".player").find('.playerimg').attr('src');
     await module.addToDreamTeam({"firstName": firstName, "lastName": lastName, "jersey": jersey, "pos": pos, "img": img})
-
   });
 
   $("body").on("click", ".retrieve", async function() {
@@ -36,8 +35,13 @@ $("body").on("click", ".removeDream", async function() {
 });
 
 $("body").on("click", ".filterActive", async function() {
-  await module.filterActive()
-  renderer.render(module.getPlayers())
+  await module.filterActive(renderer.getDreamMode())
+  if (renderer.getDreamMode()){
+    renderer.renderDreamTeam(module.getPlayers())
+  }
+  else{
+    renderer.render(module.getPlayers())
+  }
 });
 
 $("body").on("click",".stats", async function(){

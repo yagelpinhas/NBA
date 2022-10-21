@@ -1,16 +1,16 @@
 
 const DataManager = function () {
-    let players=[]
+    let nba=[]
     const getPlayerStats = async function(firstName,lastName){
-        return $.get(`/getPlayerStats?firstName=${firstName}&lastName=${lastName}`)
+        return $.get(`/players/stats?firstName=${firstName}&lastName=${lastName}`)
     }
 
     const addToDreamTeam = async function (player){
-        await $.post("/addToDreamTeam/",JSON.stringify(player));
+        await $.post("/dreamteam/",JSON.stringify(player));
     }
     const removeFromDreamTeam = async function(firstName,lastName){
         $.ajax({
-            url: `/removeFromDreamTeam?firstName=${firstName}&lastName=${lastName}`,
+            url: `/dreamteam?firstName=${firstName}&lastName=${lastName}`,
             type: 'DELETE',
             dataType: 'json',
             data: {
@@ -27,22 +27,28 @@ const DataManager = function () {
 
     }
     const getPlayers = function(){
-        return players
+        return nba
     }
     const getDreamTeam = function(){
-        return $.get(`/getDreamTeam`)
+        return $.get(`/dreamteam`)
     }
 
-    const filterActive = async function(){
-        
-        await $.get(`/filterActive`, function (response) {
-            players=response
-         })
+    const filterActive = async function(dreamMode){
+        if (dreamMode==false){
+            await $.get(`/players/filteractive`, function (response) {
+                nba=response
+            })
+        }
+        else{
+            await $.get(`/dreamteam/filteractive`, function (response) {
+                nba=response
+            })
+        }
     }
 
     const setPlayers = async function(teamName,year){
-        await $.get(`/playersByYear?teamName=${teamName}&year=${year}`, function (response) {
-           players=response
+        await $.get(`/players?teamName=${teamName}&year=${year}`, function (response) {
+           nba=response
         })
     }
     return {
